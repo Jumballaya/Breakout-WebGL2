@@ -1,0 +1,22 @@
+{
+    "screenSize": [1024, 768],
+    "levels": [
+        "example/levels/level1.json",
+        "example/levels/level2.json",
+        "example/levels/level3.json"
+    ],
+    "textures": {
+        "background":  "example/textures/background.jpg",
+        "paddle":      "example/textures/paddle.png",
+        "block":       "example/textures/brick1.png",
+        "block_solid": "example/textures/brick2.png",
+        "ball":        "example/textures/ball.png",
+        "ball_powered": "example/textures/ball_powered.png",
+        "particle":    "example/textures/particle1.png",
+        "powerup-ball-speed": "example/textures/powerup-ball-speed.png",
+        "powerup-paddle": "example/textures/powerup-paddle.png",
+        "powerup-pass-through": "example/textures/powerup-pass-through.png",
+        "powerup-pixelated": "example/textures/powerup-pixelated.png",
+        "powerup-sticky": "example/textures/powerup-sticky.png"
+    }
+}
