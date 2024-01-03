@@ -1,12 +1,10 @@
-export default {
-    esbuild: {
-        jsxFactory: 'DOMcreateElement',
-        jsxFragment: 'DOMcreateFragment',
-        jsxInject: `import { DOMcreateElement, DOMcreateFragment } from 'src/dom/renderer';`,
-    },
-    resolve: {
-        alias: {
-            src: "/src"
-        },
-    },
-};
+import { defineConfig } from 'vite';
+
+export default defineConfig(({ mode }) => {
+    if (mode === 'development') {
+        return {};
+    }
+    return {
+        base: '/Breakout-WebGL2/'
+    };
+});

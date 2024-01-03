@@ -20,12 +20,10 @@ type BreakoutEvent = {
     points: number;
 }
 
-
 export class Breakout extends EventEmitter<BreakoutEvent> {
     private data: GameData;
     private screenSize: vec2;
     private screen: Surface;
-    private canvas: HTMLCanvasElement;
     private gl: WebGL2RenderingContext;
 
     // Managers
@@ -71,8 +69,7 @@ export class Breakout extends EventEmitter<BreakoutEvent> {
         const canvas = document.createElement('canvas');
         canvas.width = data.screenSize[0];
         canvas.height = data.screenSize[1];
-        this.canvas = canvas;
-        this.inputs = new Inputs(canvas);
+        this.inputs = new Inputs(document.body);
         container.appendChild(canvas);
 
         const gl = canvas.getContext('webgl2');

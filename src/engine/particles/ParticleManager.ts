@@ -12,7 +12,7 @@ export class ParticleManager {
     private particles: Float32Array
     private vertex: VertexBuffer;
     private shader: Shader;
-    private texture: Texture;
+    public texture: Texture;
     private capacity = 100;
 
     private pointer = 0;

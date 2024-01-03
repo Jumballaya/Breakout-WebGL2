@@ -1,15 +1,12 @@
 export class Inputs {
     
-    private parent: HTMLElement;
     private keys: Record<string, boolean> = {};
     
     constructor(element: HTMLElement) {
-        this.parent = element;
-
-        document.body.addEventListener('keydown', e => {
+        element.addEventListener('keydown', e => {
              this.keys[e.key] = true;
         });
-        document.body.addEventListener('keyup', e => {
+        element.addEventListener('keyup', e => {
              this.keys[e.key] = false;
         });
     }
