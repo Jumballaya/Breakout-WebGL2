@@ -2,7 +2,7 @@
 
 [Breakout](https://en.wikipedia.org/wiki/Breakout_(video_game)) is a game originally designed by Steve Wozniak where the player controls a paddle to hit a ball to break the level's bricks.
 
-[Play this game here](https://github.com/Jumballaya/Breakout-WebGL2)
+[Play this game here](https://jumballaya.github.io/Breakout-WebGL2)
 
 ## Game Basics
 The game has 3 major components: the paddle, ball and bricks.
