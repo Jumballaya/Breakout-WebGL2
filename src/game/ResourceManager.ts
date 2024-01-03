@@ -9,6 +9,7 @@ import { GeometryLibrary } from "../engine/library/GeometryLibrary";
 import { ShaderLibrary } from "../engine/library/ShaderLibrary";
 import { TextureLibrary } from "../engine/library/TextureLibrary";
 import { quadVertices } from './objects/vertices/quad';
+import { AudioLibrary } from '../engine/library/AudioLibrary';
 
 type ResourceManagerConfig = {
     context: {
@@ -24,6 +25,7 @@ export class ResourceManager {
     private shaderLibrary: ShaderLibrary;
     private textureLibrary: TextureLibrary;
     private geometryLibrary: GeometryLibrary;
+    private audioLibrary: AudioLibrary;
 
     constructor(config: ResourceManagerConfig) {
         this.context = config.context;
@@ -31,6 +33,7 @@ export class ResourceManager {
         this.shaderLibrary = new ShaderLibrary(this.context.gl);
         this.textureLibrary = new TextureLibrary(this.context.gl);
         this.geometryLibrary = new GeometryLibrary(this.context.gl);
+        this.audioLibrary = new AudioLibrary();
 
         this.setupGeometry();
         this.setupShaders();
@@ -46,6 +49,10 @@ export class ResourceManager {
 
     public get geometries(): GeometryLibrary {
         return this.geometryLibrary;
+    }
+
+    public get audio(): AudioLibrary {
+        return this.audioLibrary;
     }
 
     private setupGeometry() {

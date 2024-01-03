@@ -9,10 +9,10 @@ async function main() {
    let lastScore = 0;
 
    // Set up game events to tie the UI and the game together
-   breakout.addEventListener('load-game', e => {
+   breakout.addEventListener('game-start', e => {
+       ui.setMessage(e.currentLevel);
        ui.updateTitle(e.currentLevel);
        ui.updateBallCount(e.balls);
-       ui.setMessage(e.currentLevel);
        ui.updatePoints(e.points);
    });
    breakout.addEventListener('level-won', (e) => {
@@ -55,7 +55,9 @@ async function main() {
        }, 'Try Again.');
    });
 
+   ui.addEventListener('close-rules', () => {
+        breakout.start();
+   });
    await breakout.load();
-   breakout.start();
 }
 main();

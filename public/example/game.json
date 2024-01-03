@@ -18,5 +18,14 @@
         "powerup-pass-through": "example/textures/powerup-pass-through.png",
         "powerup-pixelated": "example/textures/powerup-pixelated.png",
         "powerup-sticky": "example/textures/powerup-sticky.png"
+    },
+    "sounds": {
+        "impact_brick": "example/sounds/impact_brick.ogg",
+        "impact_brick_pixelated": "example/sounds/impact_brick_pixelated.ogg",
+        "impact_metal": "example/sounds/impact_metal.ogg",
+        "impact_metal_pixelated": "example/sounds/impact_metal_pixelated.ogg",
+        "impact_powerup": "example/sounds/impact_powerup.ogg",
+        "level_win": "example/sounds/level_win.ogg",
+        "lost_game": "example/sounds/lost_game.ogg"
     }
 }

@@ -4,4 +4,5 @@ export type GameData = {
     screenSize: vec2;
     levels: Array<string>;
     textures: Record<string, string>;
+    sounds: Record<string, string>;
 };

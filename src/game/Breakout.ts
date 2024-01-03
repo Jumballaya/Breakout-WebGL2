@@ -20,6 +20,7 @@ type BreakoutEvent = {
     points: number;
 }
 
+
 export class Breakout extends EventEmitter<BreakoutEvent> {
     private data: GameData;
     private screenSize: vec2;
@@ -38,7 +39,6 @@ export class Breakout extends EventEmitter<BreakoutEvent> {
     // Game Entities
     private paddle: Paddle;
     private ball: Ball;
-
     // Levels
     private levels: Record<string, GameLevel> = {};
 
@@ -130,6 +130,9 @@ export class Breakout extends EventEmitter<BreakoutEvent> {
         for (const [name, path] of Object.entries(this.data.textures)) {
             await this.resources.textures.create(name, path);
         }
+        for (const [name, path] of Object.entries(this.data.sounds)) {
+            await this.resources.audio.loadSound(name, path);
+        }
         for (const level of this.data.levels) {
             const lvl = await GameLevel.FromFile(level);
             if (this.currentLevel === '') this.currentLevel = lvl.title;
@@ -140,6 +143,7 @@ export class Breakout extends EventEmitter<BreakoutEvent> {
     }
 
     public start() {
+        this.emitEvent('game-start');
         this.running = true;
         let time = Date.now();
         const loop = () => {
@@ -265,6 +269,11 @@ export class Breakout extends EventEmitter<BreakoutEvent> {
         if (levelCollissions.length > 0) {
             for (const collision of levelCollissions) {
                 if (collision.unbreakable) {
+                    if (this.pixelPowerup.active) {
+                        this.resources.audio.play('impact_metal_pixelated');
+                    } else {
+                        this.resources.audio.play('impact_metal');
+                    }
                     this.screen.isShaking = true;
                     setTimeout(() => {
                         this.screen.isShaking = false;
@@ -272,6 +281,11 @@ export class Breakout extends EventEmitter<BreakoutEvent> {
                 } else {
                     this.powerupManager.randomSpawn(collision.position);
                     this.points += 10;
+                    if (this.pixelPowerup.active) {
+                        this.resources.audio.play('impact_brick_pixelated');
+                    } else {
+                        this.resources.audio.play('impact_brick');
+                    }
                 }
             }
             this.emitEvent('update-points');
@@ -312,7 +326,6 @@ export class Breakout extends EventEmitter<BreakoutEvent> {
         for (let col of collisions) {
             this.points += 5;
             if (col.type === 'paddle') {
-                console.log('Paddle Size Increase!');
                 const paddleSize = this.paddle.collider.size;
                 paddleSize[0] += 12;
                 this.paddle.collider.size = paddleSize;
@@ -346,7 +359,10 @@ export class Breakout extends EventEmitter<BreakoutEvent> {
                 }
             }
         }
-        if (collisions.length > 0) this.emitEvent('update-points');
+        if (collisions.length > 0) {
+            this.emitEvent('update-points');
+            this.resources.audio.play('impact_powerup');
+        }
         this.powerupManager.cullOutOfBounds(this.screenSize);
     }
 
@@ -357,6 +373,7 @@ export class Breakout extends EventEmitter<BreakoutEvent> {
             this.emitEvent('ball-count');
             if (this.balls <= 0) {
                 this.emitEvent('game-lost');
+                this.resources.audio.play('lost_game');
                 this.pause();
                 return;
             }; 
@@ -372,6 +389,7 @@ export class Breakout extends EventEmitter<BreakoutEvent> {
             if (level.nextLevel) {
                 this.powerupManager.clear();
                 this.emitEvent('level-won');
+                this.resources.audio.play('level_win');
                 this.pause();
             } else {
                 this.emitEvent('game-won');
